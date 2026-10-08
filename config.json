@@ -1,0 +1,163 @@
+{
+  "timezone": "America/New_York",
+  "entities": {
+    "jobs": "JobListing",
+    "linkedinLog": "LinkedInJobPost"
+  },
+  "excludeCompanies": [
+    "Hyve Group",
+    "Hyve"
+  ],
+  "trendingCompanies": [
+    "Google",
+    "Alphabet",
+    "YouTube",
+    "Anthropic",
+    "OpenAI",
+    "Meta",
+    "Microsoft",
+    "Apple",
+    "Amazon",
+    "AWS",
+    "Nvidia",
+    "Salesforce",
+    "Oracle",
+    "IBM",
+    "Adobe",
+    "Cisco",
+    "Stripe",
+    "Databricks",
+    "Snowflake",
+    "xAI",
+    "Mistral",
+    "Perplexity",
+    "Scale AI",
+    "Shopify",
+    "Netflix",
+    "Uber",
+    "Airbnb",
+    "Tesla",
+    "SpaceX"
+  ],
+  "trending": {
+    "minJobs": 2,
+    "maxJobs": 4,
+    "cooldownDays": 7,
+    "sub": "Big-name brands are hiring for events"
+  },
+  "roundup": {
+    "maxJobs": 5,
+    "windowDays": 7
+  },
+  "singleJobCooldownDays": 30,
+  "matchLinkedIn": true,
+  "active": {
+    "field": "is_active",
+    "values": [
+      "true"
+    ]
+  },
+  "fields": {
+    "id": [
+      "id"
+    ],
+    "title": [
+      "job_title",
+      "title"
+    ],
+    "company": [
+      "company_name",
+      "company"
+    ],
+    "location": [
+      "location"
+    ],
+    "salary": [
+      "salary_range",
+      "salary"
+    ],
+    "summary": [
+      "job_summary",
+      "description",
+      "company_bio",
+      "summary"
+    ],
+    "url": [
+      "job_url",
+      "apply_url",
+      "url"
+    ],
+    "posted": [
+      "date_posted",
+      "created_date"
+    ],
+    "type": [
+      "employment_type",
+      "job_type"
+    ],
+    "category": [
+      "category"
+    ],
+    "remote": [
+      "location_type",
+      "is_remote",
+      "work_arrangement"
+    ]
+  },
+  "linkedinFields": {
+    "title": [
+      "job_title"
+    ],
+    "company": [
+      "company"
+    ],
+    "url": [
+      "apply_link"
+    ],
+    "date": [
+      "created_date",
+      "post_date"
+    ],
+    "urn": [
+      "linkedin_post_urn"
+    ]
+  },
+  "schedules": {
+    "15 14 * * *": {
+      "kind": "event",
+      "hour": 10
+    },
+    "15 15 * * *": {
+      "kind": "event",
+      "hour": 10
+    },
+    "15 19 * * *": {
+      "kind": "remote",
+      "hour": 15
+    },
+    "15 20 * * *": {
+      "kind": "remote",
+      "hour": 15
+    },
+    "20 13 * * 5": {
+      "kind": "roundup",
+      "hour": 9
+    },
+    "20 14 * * 5": {
+      "kind": "roundup",
+      "hour": 9
+    },
+    "25 16 * * 2,4": {
+      "kind": "trending",
+      "hour": 12
+    },
+    "25 17 * * 2,4": {
+      "kind": "trending",
+      "hour": 12
+    }
+  },
+  "base44": {
+    "jobsAppId": "6a257ced3775f1f6c6c8e375",
+    "linkedinAppId": "6a69522ff3e5b55739493ad4"
+  }
+}

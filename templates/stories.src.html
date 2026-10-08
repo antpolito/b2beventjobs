@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Story Templates</title>
+<style>
+/*FONTS*/
+:root{
+  --navy:#0B1020; --blue:#1F4FFF; --lime:#C6FF1A; --paper:#F4F5F8; --slate:#4B5468; --mist:#8A93A8; --fog:#B4BBCB; --canvas:#E9ECF3;
+  --ui-bg:#E9ECF3; --ui-ink:#0B1020; --ui-mute:#4B5468; --ui-card:#fff;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--ui-bg:#080B16;--ui-ink:#F4F5F8;--ui-mute:#B4BBCB;--ui-card:#11172B;}
+}
+:root[data-theme="dark"]{--ui-bg:#080B16;--ui-ink:#F4F5F8;--ui-mute:#B4BBCB;--ui-card:#11172B;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ui-bg);color:var(--ui-ink);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased}
+
+/* ---------- STORY CANVAS (1080 x 1920) ---------- */
+.story{width:1080px;height:1920px;position:relative;overflow:hidden;display:flex;flex-direction:column;
+  padding:250px 72px 360px;font-family:'Plus Jakarta Sans',sans-serif}
+.story.paper{background:var(--paper);color:var(--navy)}
+.story.blue{background:var(--blue);color:#fff}
+.story.navy{background:var(--navy);color:#fff}
+.sg{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.045em;line-height:.96}
+.mono{font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+
+/* eyebrow row: mono label + date */
+.eyebrow{display:flex;justify-content:space-between;align-items:center;font-size:27px}
+.paper .eyebrow{color:var(--slate)} .blue .eyebrow{color:#fff} .navy .eyebrow{color:var(--mist)}
+.eyebrow .dot{display:inline-block;width:16px;height:16px;border-radius:4px;background:var(--lime);margin-right:16px;transform:rotate(-8deg)}
+.paper .eyebrow .dot{background:var(--blue)}
+
+/* lime tilted badge (brand motif) */
+.badge{display:inline-flex;align-items:center;gap:14px;background:var(--lime);color:var(--navy);border-radius:18px;
+  padding:20px 32px;font:700 34px 'Plus Jakarta Sans',sans-serif;white-space:nowrap;box-shadow:0 14px 30px rgba(11,16,32,.2);align-self:flex-start}
+.badge svg{width:30px;height:30px;flex:none}
+.tilt-l{transform:rotate(-3deg)} .tilt-r{transform:rotate(3deg)}
+
+/* chips (outlined, from cover 1b) */
+.chips{display:flex;flex-wrap:wrap;gap:16px}
+.chip{font:600 31px 'Plus Jakarta Sans',sans-serif;border:3px solid;border-radius:16px;padding:12px 26px;white-space:nowrap}
+.paper .chip{border-color:rgba(11,16,32,.28);color:var(--navy)}
+.blue .chip{border-color:rgba(255,255,255,.6);color:#fff}
+.navy .chip{border-color:rgba(255,255,255,.4);color:#fff}
+
+/* lime underline highlight on a key word */
+.hl{background:linear-gradient(transparent 64%,var(--lime) 64%);padding:0 4px;margin:0 -4px}
+.blue .hl,.navy .hl{background:none;color:var(--lime)}
+
+/* URL */
+.url{font:700 40px 'Plus Jakarta Sans',sans-serif;white-space:nowrap}
+.paper .url{color:var(--blue)} .blue .url,.navy .url{color:#fff}
+.cta{display:inline-flex;align-items:center;gap:16px;background:var(--navy);color:#fff;border-radius:22px;padding:30px 44px;font:700 42px 'Plus Jakarta Sans',sans-serif;align-self:flex-start;white-space:nowrap}
+.cta b{color:var(--lime);font-weight:700}
+.blue .cta{background:var(--lime);color:var(--navy)} .blue .cta b{color:var(--navy)}
+.navy .cta{background:var(--lime);color:var(--navy)} .navy .cta b{color:var(--navy)}
+
+.stack{display:flex;flex-direction:column;flex:1;min-height:0}
+.grow{flex:1}
+
+/* ---------- JOB OF THE DAY ---------- */
+.job .title{font-size:150px;margin-top:64px}
+.job .company{font:700 52px 'Plus Jakarta Sans',sans-serif;margin-top:44px}
+.pos{color:var(--lime)}
+.paper .company{color:var(--blue)} .blue .company{color:var(--lime)}
+.job .meta{margin-top:40px}
+.job .blurb{font:500 38px/1.4 'Plus Jakarta Sans',sans-serif;margin-top:44px;max-width:860px}
+.paper .blurb{color:var(--slate)} .blue .blurb{color:#fff;opacity:.92}
+.job .rule{height:8px;border-radius:4px;background:var(--blue);width:140px;margin:56px 0 0}
+.blue .rule{background:var(--lime)}
+
+/* ---------- LIST (roundup) ---------- */
+.list .head{font-size:140px;margin-top:44px}
+.list .sub{font:500 36px/1.35 'Plus Jakarta Sans',sans-serif;margin-top:20px;color:var(--fog)}
+.rows{margin-top:40px;display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:96px 1fr;gap:20px;padding:22px 0;border-top:3px solid rgba(255,255,255,.16);align-items:start}
+.row:last-child{border-bottom:3px solid rgba(255,255,255,.16)}
+.row .n{font-size:30px;color:var(--lime);padding-top:10px}
+.row .t{font:700 44px/1.08 'Space Grotesk',sans-serif;letter-spacing:-.035em}
+.row .c{font:600 31px 'Plus Jakarta Sans',sans-serif;color:var(--fog);margin-top:10px}
+
+/* ---------- TRENDING ---------- */
+.trend .head{font-size:164px;margin-top:56px}
+.trend .sub{font:500 36px/1.35 'Plus Jakarta Sans',sans-serif;margin-top:40px;color:var(--slate)}
+.cards{margin-top:40px;display:flex;flex-direction:column;gap:22px}
+.card{background:#fff;border-radius:28px;padding:30px 38px;display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:center;box-shadow:0 10px 26px rgba(11,16,32,.08)}
+.card .rk{font:700 120px/1 'Space Grotesk',sans-serif;letter-spacing:-.06em;color:var(--blue)}
+.card:first-child{background:var(--navy);color:#fff}
+.card:first-child .rk{color:var(--lime)}
+.card .t{font:700 47px/1.08 'Space Grotesk',sans-serif;letter-spacing:-.035em}
+.card .c{font:600 31px 'Plus Jakarta Sans',sans-serif;color:var(--slate);margin-top:10px}
+.card:first-child .c{color:var(--fog)}
+.paper.trend{border-bottom:8px solid var(--blue)}
+
+/* ---------- CLOSER ---------- */
+.closer .head{font-size:196px;margin-top:44px}
+.closer .head em{font-style:normal;color:var(--lime)}
+.closer .sub{font:500 42px/1.38 'Plus Jakarta Sans',sans-serif;margin-top:40px;max-width:860px}
+.closer .big-url{display:inline-block;background:var(--lime);color:var(--navy);font:700 60px 'Plus Jakarta Sans',sans-serif;border-radius:24px;padding:30px 44px;white-space:nowrap;align-self:flex-start;margin-bottom:34px;transform:rotate(-2deg);box-shadow:0 16px 34px rgba(11,16,32,.28)}
+.wordmark{display:flex;align-items:center;gap:16px;font:700 44px 'Space Grotesk',sans-serif;letter-spacing:-.04em}
+.wordmark i{width:26px;height:26px;border-radius:7px;background:var(--lime);transform:rotate(-8deg);display:block}
+
+/* ---------- SAFE ZONE OVERLAY ---------- */
+.safe{position:absolute;inset:0;pointer-events:none;display:none}
+.show-safe .safe{display:block}
+.safe .top{position:absolute;left:0;right:0;top:0;height:250px;background:rgba(255,77,77,.22);border-bottom:3px dashed #FF4D4D}
+.safe .bot{position:absolute;left:0;right:0;bottom:0;height:360px;background:rgba(255,77,77,.22);border-top:3px dashed #FF4D4D}
+.safe .l{position:absolute;top:0;bottom:0;left:0;width:72px;border-right:3px dashed #FF4D4D}
+.safe .r{position:absolute;top:0;bottom:0;right:0;width:72px;border-left:3px dashed #FF4D4D}
+
+/* ---------- GALLERY UI (not part of the Story) ---------- */
+body.gallery{padding:40px 24px 64px}
+.ui-head{max-width:1500px;margin:0 auto 28px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-end}
+.ui-head h1{font:700 40px/1 'Space Grotesk',sans-serif;letter-spacing:-.04em}
+.ui-head p{color:var(--ui-mute);font-size:15px;line-height:1.5;margin-top:10px;max-width:640px}
+.ui-tools{display:flex;gap:10px;flex-wrap:wrap}
+.btn{font:600 14px 'Plus Jakarta Sans',sans-serif;border:1.5px solid var(--ui-ink);background:transparent;color:var(--ui-ink);border-radius:10px;padding:9px 14px;cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--lime);color:var(--navy);border-color:var(--lime)}
+.strip{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:28px}
+.slot{display:flex;flex-direction:column;gap:12px}
+.slot .lab{display:flex;gap:10px;align-items:center;font:600 14px 'Plus Jakarta Sans',sans-serif;color:var(--ui-mute)}
+.slot .lab b{font:700 13px 'Space Grotesk',sans-serif;color:#fff;background:var(--blue);border-radius:6px;padding:3px 9px}
+.frame{position:relative;width:100%;aspect-ratio:9/16;border-radius:18px;overflow:hidden;box-shadow:0 14px 34px rgba(11,16,32,.2)}
+.frame .scaler{position:absolute;left:0;top:0;transform-origin:0 0}
+.data{max-width:1500px;margin:36px auto 0;background:var(--ui-card);border-radius:18px;padding:22px 24px}
+.data h2{font:700 20px 'Space Grotesk',sans-serif;letter-spacing:-.02em}
+.data p{color:var(--ui-mute);font-size:14px;margin:6px 0 12px;line-height:1.5}
+.data textarea{width:100%;height:260px;border:1.5px solid rgba(138,147,168,.5);border-radius:12px;background:transparent;color:var(--ui-ink);font:500 13px/1.5 'IBM Plex Mono',monospace;padding:14px;resize:vertical}
+.err{color:#FF4D4D;font-size:13px;margin-top:8px;min-height:18px}
+body.solo{background:#000}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const CHECK='<svg viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5l3.5 3.5 7.5-8" stroke="#0B1020" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const clip=(t,n)=>{t=String(t??'').trim();if(t.length<=n)return t;let c=t.slice(0,n-1);const sp=c.lastIndexOf(' ');if(sp>n*0.6)c=c.slice(0,sp);return c.replace(/[\s,;:·&-]+$/,'')+'…'};
+const hl=(t,k)=>{t=esc(t);if(!k)return t;const e=esc(k);return t.replace(e,'<span class="hl">'+e+'</span>')};
+
+/* Sample data. Replace with LinkedIn job fields (see data panel / render.mjs). */
+const DEFAULT_DATA={
+  date:"Thu · Oct 8",
+  event:{title:"Senior Director, Sponsorship Sales",highlight:"Sponsorship",company:"Northfield Events",chips:["Chicago, IL","Full-time","Trade Shows"],blurb:"Own a $4M portfolio across three flagship B2B conferences."},
+  remote:{title:"Remote Event Marketing Manager",highlight:"Remote",company:"Summit & Co.",chips:["Remote · US","Full-time","Marketing"],blurb:"Lead demand gen for a global conference series from anywhere."},
+  roundup:{title:"Friday Roundup",sub:"5 fresh roles from this week",jobs:[
+    {t:"VP, Exhibitor Sales",c:"Meridian Expos · Las Vegas"},
+    {t:"Conference Producer",c:"Atlas Media · New York"},
+    {t:"Sponsorship Account Executive",c:"Northfield Events · Remote"},
+    {t:"Event Marketing Lead",c:"Brightline Live · Austin"},
+    {t:"Attendee Experience Manager",c:"Summit & Co. · Orlando"}]},
+  trending:{title:"Trending",sub:"Big-name brands are hiring for events",jobs:[
+    {t:"Director of Partnerships",c:"Meridian Expos · Remote"},
+    {t:"Senior Conference Producer",c:"Atlas Media · London"},
+    {t:"Exhibit Sales Manager",c:"Brightline Live · Dallas"},
+    {t:"Head of Event Operations",c:"Summit & Co. · Remote"}]},
+  closer:{head:"Find your next",accent:"stage.",sub:"Vetted roles across conferences, trade shows, and live experiences.",tags:["Event Sales","Production","Marketing"]}
+};
+
+const eyebrow=(label,d)=>`<div class="eyebrow mono"><span><span class="dot"></span>${esc(label)}</span><span>${esc(d)}</span></div>`;
+const footer=(cls)=>`<div class="grow"></div>`;
+const safeOverlay='<div class="safe"><div class="top"></div><div class="bot"></div><div class="l"></div><div class="r"></div></div>';
+
+const tsize=t=>t.length<=26?150:t.length<=40?128:t.length<=56?108:92;
+function jobSlide(bg,label,j,d){
+  const ttl=clip(j.title,72);
+  return `<div class="story ${bg} job">${eyebrow(label,d)}
+    <div class="stack">
+      <div class="title sg" style="font-size:${tsize(ttl)}px">${j.position?esc(ttl).replace(esc(j.position),'<span class="pos">'+esc(j.position)+'</span>'):hl(ttl,j.highlight)}</div>
+      <div class="company">${esc(clip(j.company,34))}</div>
+      <div class="meta chips">${(j.chips||[]).filter(Boolean).slice(0,3).map(c=>`<span class="chip">${esc(clip(c,22))}</span>`).join('')}</div>
+      ${j.blurb?`<div class="blurb">${esc(clip(j.blurb,110))}</div>`:''}
+      <div class="grow"></div>
+      <div class="cta">Apply at <b>b2beventjobs.com ↗</b></div>
+    </div>${safeOverlay}</div>`;
+}
+const T={
+  event:(D)=>jobSlide('paper','Event Job of the Day',D.event,D.date),
+  remote:(D)=>jobSlide('blue','Remote Job of the Day',D.remote,D.date),
+  roundup:(D)=>{const r=D.roundup;return `<div class="story navy list">${eyebrow('B2B Event Jobs',D.date)}
+    <div class="stack">
+      <div class="head sg">${esc(r.title).replace(/^(\S+)/,'<span style="color:var(--lime)">$1</span>')}</div>
+      <div class="sub">${esc(r.sub)}</div>
+      <div class="rows">${r.jobs.slice(0,5).map((j,i)=>`<div class="row"><div class="n mono">0${i+1}</div><div><div class="t">${esc(clip(j.t,46))}</div><div class="c">${esc(clip(j.c,44))}</div></div></div>`).join('')}</div>
+      <div class="grow" style="min-height:36px"></div>
+      <div class="url">More at b2beventjobs.com ↗</div>
+    </div>${safeOverlay}</div>`},
+  trending:(D)=>{const r=D.trending;return `<div class="story paper trend">${eyebrow('Trending Jobs',D.date)}
+    <div class="stack">
+      <div class="head sg">${esc(r.title).replace(/^(\S+)/,'<span class="hl">$1</span>')}</div>
+      ${r.sub?`<div class="sub">${esc(r.sub)}</div>`:''}
+      <div class="cards">${r.jobs.slice(0,4).map((j,i)=>`<div class="card"><div class="rk">${i+1}</div><div><div class="t">${esc(clip(j.t,46))}</div><div class="c">${esc(clip(j.c,44))}</div></div></div>`).join('')}</div>
+      <div class="grow"></div>
+      <div class="url">See them all at b2beventjobs.com ↗</div>
+    </div>${safeOverlay}</div>`},
+  closer:(D)=>{const c=D.closer;return `<div class="story blue closer">
+    <div class="eyebrow mono"><span class="wordmark"><i></i>B2B Event Jobs</span><span></span></div>
+    <div class="stack">
+      <div class="badge tilt-l" style="margin-top:40px">${CHECK}Fresh Jobs. Checked Daily</div>
+      <div class="head sg">${esc(c.head)} <em>${esc(c.accent)}</em></div>
+      <div class="sub">${esc(c.sub)}</div>
+      <div class="meta chips" style="margin-top:44px">${c.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join('')}</div>
+      <div class="grow"></div>
+      <div class="big-url">b2beventjobs.com ↗</div>
+    </div>${safeOverlay}</div>`}
+};
+const META=[['event','Event Job of the Day'],['remote','Remote Job of the Day'],['roundup','Friday Roundup'],['trending','Trending Jobs'],['closer','Brand closer · always last']];
+
+window.renderStory=(type,data)=>T[type](data||DEFAULT_DATA);
+window.DEFAULT_DATA=DEFAULT_DATA;
+
+const app=document.getElementById('app');
+const q=new URLSearchParams(location.search);
+if(q.get('solo')){ // single full-size canvas for PNG export
+  document.body.className='solo';
+  const D=Object.assign({},DEFAULT_DATA,window.__DATA__||{});
+  app.innerHTML=T[q.get('solo')](D);
+  document.body.style.margin='0';
+}else{
+  document.body.className='gallery';
+  let D=JSON.parse(JSON.stringify(DEFAULT_DATA)), safe=false;
+  app.innerHTML=`<div class="ui-head"><div><h1>Instagram Story templates</h1><p>1080 × 1920 · Safe zone: 250 px top, 360 px bottom, 72 px sides. Sample content only. Edit the data below to preview real jobs.</p></div>
+  <div class="ui-tools"><button class="btn" id="safeBtn" aria-pressed="false">Show safe zones</button></div></div>
+  <div class="strip" id="strip"></div>
+  <div class="data"><h2>Job data</h2><p>Each slide is filled from this JSON. The automation maps LinkedIn fields to these keys.</p><textarea id="ta" spellcheck="false"></textarea><div class="err" id="err"></div></div>`;
+  const strip=document.getElementById('strip'),ta=document.getElementById('ta'),err=document.getElementById('err');
+  const draw=()=>{
+    strip.innerHTML=META.map(([k,l],i)=>`<div class="slot"><div class="lab"><b>${i+1}</b>${l}</div><div class="frame ${safe?'show-safe':''}" data-k="${k}"><div class="scaler">${T[k](D)}</div></div></div>`).join('');
+    fit();
+  };
+  const fit=()=>document.querySelectorAll('.frame').forEach(f=>{f.querySelector('.scaler').style.transform=`scale(${f.clientWidth/1080})`});
+  window.addEventListener('resize',fit);
+  ta.value=JSON.stringify(D,null,2);
+  ta.addEventListener('input',()=>{try{D=JSON.parse(ta.value);err.textContent='';draw()}catch(e){err.textContent='Invalid JSON: '+e.message}});
+  document.getElementById('safeBtn').onclick=e=>{safe=!safe;e.target.setAttribute('aria-pressed',safe);draw()};
+  draw();
+  if(document.fonts)document.fonts.ready.then(draw);
+}
+</script>
+</body>
+</html>

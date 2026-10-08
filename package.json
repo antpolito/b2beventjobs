@@ -1,0 +1,7 @@
+{
+  "name": "b2b-event-jobs-stories",
+  "private": true,
+  "type": "module",
+  "scripts": { "build:template": "python3 templates/build.py", "test": "node test/run-tests.mjs" },
+  "dependencies": { "playwright": "1.56.0" }
+}
