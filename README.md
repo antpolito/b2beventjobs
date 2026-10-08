@@ -14,9 +14,9 @@ Never posts Hyve Group (`excludeCompanies`). A job isn't re-featured for 30 days
 ## One-time setup
 1. **Create a public GitHub repo** and push this folder. (Public because Instagram must fetch the images from a public URL. No secrets live in the repo.)
 2. **Settings → Secrets and variables → Actions → New repository secret**:
-   - `BASE44_API_KEY` — API key of the **B2BEVENTJOBS.COM** app (owns `JobListing`)
-   - `BASE44_LINKEDIN_API_KEY` — API key of the **Lyra** app (owns `LinkedInJobPost`)
-   - (App IDs are not secret and live in `config.json → base44`.) Base44 keys are app-wide read/write, so keep this repo single-owner and never run untrusted workflows with secrets.
+   - `BASE44_API_KEY` — Base44 **personal access token**, Read-only, scoped to the **B2BEVENTJOBS.COM** app (owns `JobListing`)
+   - `BASE44_LINKEDIN_API_KEY` — Base44 **personal access token**, Read-only, scoped to the **Lyra** app (owns `LinkedInJobPost`)
+   - Create each in Base44: workspace name (bottom left) → **Settings → Secrets → Personal access tokens → Create access token**. Sent as `Authorization: Bearer <token>`. (App IDs are not secret and live in `config.json → base44`.) Keep this repo single-owner and never run untrusted workflows with secrets.
    - `IG_USER_ID` — the Instagram Business account ID (yours: 27544176338592260)
    - `IG_ACCESS_TOKEN` — your own token (never Base44's). Two kinds work:
      - **Facebook-Login system-user token** (never expires; needs the IG account linked to a Facebook Page; scope `instagram_content_publish`) → leave `IG_GRAPH_BASE` unset.

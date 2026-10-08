@@ -10,7 +10,7 @@ async function fetchEntity(entity, appId, apiKey, keyName) {
   const all = [], limit = 500;
   for (let skip = 0; skip < 2500; skip += limit) {                  // page with skip until a short page comes back
     const url = `${base}/api/apps/${appId}/entities/${entity}?sort=-created_date&limit=${limit}&skip=${skip}`;
-    const res = await fetch(url, { headers: { api_key: apiKey, 'Content-Type': 'application/json' } });
+    const res = await fetch(url, { headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' } });   // personal access token (api_key header retired Oct 15 2026)
     if (!res.ok) throw new Error(`Base44 ${entity} fetch failed: ${res.status} ${(await res.text()).slice(0, 200)}`);   // never prints the key
     const body = await res.json(); const page = Array.isArray(body) ? body : (body.items || body.data || []);
     all.push(...page); if (page.length < limit) break;

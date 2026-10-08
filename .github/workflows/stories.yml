@@ -36,8 +36,8 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Run
         env:
-          BASE44_API_KEY:          ${{ secrets.BASE44_API_KEY }}            # B2BEVENTJOBS.COM app (JobListing)
-          BASE44_LINKEDIN_API_KEY: ${{ secrets.BASE44_LINKEDIN_API_KEY }}   # Lyra app (LinkedInJobPost)
+          BASE44_API_KEY:          ${{ secrets.BASE44_API_KEY }}            # Base44 personal access token, Read-only, scoped to B2BEVENTJOBS.COM (JobListing)
+          BASE44_LINKEDIN_API_KEY: ${{ secrets.BASE44_LINKEDIN_API_KEY }}   # Base44 personal access token, Read-only, scoped to Lyra (LinkedInJobPost)
           IG_USER_ID:      ${{ secrets.IG_USER_ID }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_GRAPH_BASE:   ${{ vars.IG_GRAPH_BASE }}
